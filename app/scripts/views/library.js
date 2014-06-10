@@ -34,6 +34,7 @@ define([
                var bookView = new BookView({model: item});
                bookView.render();
                console.log(bookView.el);
+              $('#books').append(bookView.render().el);
             });
         },
 
