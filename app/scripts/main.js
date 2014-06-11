@@ -22,6 +22,6 @@ require([
 ], function ($,Backbone, LibraryView) {
     $(function() {
 
-        new LibraryView(books);
+        new LibraryView();
     });
 });

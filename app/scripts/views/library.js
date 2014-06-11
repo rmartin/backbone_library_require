@@ -1,45 +1,49 @@
 /*global define*/
 
 define([
-    'jquery',
-    'underscore',
-    'backbone',
-    'bookView',
-    'library',
-    'templates'
+  'jquery',
+  'underscore',
+  'backbone',
+  'bookView',
+  'library',
+  'templates'
 ], function ($, _, Backbone, BookView, Library, JST) {
-    'use strict';
+  'use strict';
 
-    var LibraryView = Backbone.View.extend({
-        template: JST['app/scripts/templates/library.ejs'],
+  var LibraryView = Backbone.View.extend({
+    template: JST['app/scripts/templates/library.ejs'],
 
-        el: '#books',
+    el: '#books',
 
-        tagName: 'div',
+    tagName: 'div',
 
-        id: '',
+    id: '',
 
-        className: '',
+    className: '',
 
-        events: {},
+    events: {},
 
-        initialize: function( initialBooks ) {
-        this.collection = new Library( initialBooks );
-        this.render();
+    initialize: function (initialBooks) {
+      var that = this;
+      this.collection = new Library();
+      this.collection.fetch().done(function(){
+        that.render();
+      });
+
 
     },
 
-        render: function () {
-            //this.$el.html(this.template(this.model.toJSON()));
-            this.collection.each(function( item ){
-               var bookView = new BookView({model: item});
-               bookView.render();
-               console.log(bookView.el);
-              $('#books').append(bookView.render().el);
-            });
-        },
+    render: function () {
+      //this.$el.html(this.template(this.model.toJSON()));
+      this.collection.each(function (item) {
+        var bookView = new BookView({model: item});
+        bookView.render();
+        console.log(bookView.el);
+        $('#books').append(bookView.render().el);
+      });
+    },
 
-    });
+  });
 
-    return LibraryView;
+  return LibraryView;
 });
