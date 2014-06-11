@@ -5,9 +5,8 @@ define([
   'underscore',
   'backbone',
   'bookView',
-  'library',
   'templates'
-], function ($, _, Backbone, BookView, Library, JST) {
+], function ($, _, Backbone, BookView, JST) {
   'use strict';
 
   var LibraryView = Backbone.View.extend({
@@ -23,14 +22,16 @@ define([
 
     events: {},
 
-    initialize: function (initialBooks) {
-      var that = this;
-      this.collection = new Library();
-      this.collection.fetch().done(function(){
-        that.render();
-      });
+    initialize: function () {
+      this.listenTo(this.collection, 'successOnFetch', this.handleSuccess);
+      this.listenTo(this.collection, 'errorOnFetch', this.handleError);
+    },
 
+    handleSuccess: function(){
+      this.render();
+    },
 
+    handleError: function(){
     },
 
     render: function () {
@@ -41,8 +42,7 @@ define([
         console.log(bookView.el);
         $('#books').append(bookView.render().el);
       });
-    },
-
+    }
   });
 
   return LibraryView;

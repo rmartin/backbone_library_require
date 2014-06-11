@@ -8,7 +8,7 @@ require.config({
         jquery: '../bower_components/jquery/dist/jquery',
         backbone: '../bower_components/backbone/backbone',
         underscore: '../bower_components/underscore/underscore',
-        library: 'collections/library',
+        libraryCollection: 'collections/library',
         bookView: 'views/book',
         libraryView: 'views/library',
         app: 'app'
@@ -18,10 +18,13 @@ require.config({
 require([
 	'jquery',
     'backbone',
+    'libraryCollection',
     'libraryView'
-], function ($,Backbone, LibraryView) {
+], function ($,Backbone, LibraryCollection, LibraryView) {
     $(function() {
 
-        new LibraryView();
+        var libraryCollection = new LibraryCollection();
+        var libraryView = new LibraryView({ collection: libraryCollection });
+        libraryCollection.getResults();
     });
 });
