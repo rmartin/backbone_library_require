@@ -8,6 +8,7 @@ define([
     'use strict';
 
     var Library = Backbone.Collection.extend({
+    	url: 'scripts/book.json',
         model: Book
     });
 

@@ -26,6 +26,7 @@ define([
         initialize: function( initialBooks ) {
         this.collection = new Library( initialBooks );
         this.render();
+
     },
 
         render: function () {
