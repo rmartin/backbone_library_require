@@ -1,49 +1,49 @@
 /*global define*/
 
 define([
-  'jquery',
-  'underscore',
-  'backbone',
-  'bookView',
-  'templates'
+    'jquery',
+    'underscore',
+    'backbone',
+    'bookView',
+    'templates'
 ], function ($, _, Backbone, BookView, JST) {
-  'use strict';
+    'use strict';
 
-  var LibraryView = Backbone.View.extend({
-    template: JST['app/scripts/templates/library.ejs'],
+    var LibraryView = Backbone.View.extend({
+        template: JST['app/scripts/templates/library.ejs'],
 
-    el: '#books',
+        el: '#books',
 
-    tagName: 'div',
+        tagName: 'div',
 
-    id: '',
+        id: '',
 
-    className: '',
+        className: '',
 
-    events: {},
+        events: {},
 
-    initialize: function () {
-      this.listenTo(this.collection, 'successOnFetch', this.handleSuccess);
-      this.listenTo(this.collection, 'errorOnFetch', this.handleError);
-    },
+        initialize: function () {
+            this.listenTo(this.collection, 'successOnFetch', this.handleSuccess);
+            this.listenTo(this.collection, 'errorOnFetch', this.handleError);
+        },
 
-    handleSuccess: function(){
-      this.render();
-    },
+        handleSuccess: function () {
+            this.render();
+        },
 
-    handleError: function(){
-    },
+        handleError: function () {
+        },
 
-    render: function () {
-      //this.$el.html(this.template(this.model.toJSON()));
-      this.collection.each(function (item) {
-        var bookView = new BookView({model: item});
-        bookView.render();
-        console.log(bookView.el);
-        $('#books').append(bookView.render().el);
-      });
-    }
-  });
+        render: function () {
+            //this.$el.html(this.template(this.model.toJSON()));
+            this.collection.each(function (item) {
+                var bookView = new BookView({model: item});
+                bookView.render();
+                console.log(bookView.el);
+                $('#books').append(bookView.render().el);
+            });
+        }
+    });
 
-  return LibraryView;
+    return LibraryView;
 });
